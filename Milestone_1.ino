@@ -1,7 +1,7 @@
 /* 
 Ir and Motor Test v1
 
-This code will 
+This code will be used to avoid wall and other obstacles for my vacuum robot
 */
 const int sensorpin1 = 0; //sets the left IR sensor to pin A0
 const int sensorpin2 = 1; //sets the right IR sensor to pin A1
