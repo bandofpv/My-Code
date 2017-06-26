@@ -13,6 +13,8 @@ const int dcmotor2pin1 = 6; //sets in3 to pin 6
 const int dcmotor2pin2 = 9; //sets in4to pin 9
 const int pwmMax = 160; //sets pwmMax to 160
 const int pwmMin = 70; //sets pwmMin to 70
+const int low = 0; //sets low to 0
+const int pwmIncrease = 20; //sets pwmIncrease to 20
 
 void setup() {
   // put your setup code here, to run once:
@@ -23,59 +25,59 @@ void setup() {
 }
 
 void rightMotors(int moveTime){ //moves the left motor forwards and the right motor backwards
-    digitalWrite(dcmotor1pin1, 0); //sets in1 to 0
+    digitalWrite(dcmotor1pin1, low); //sets in1 to 0
     digitalWrite(dcmotor1pin2, pwmMin); //sets in2 to 70pwm
-    digitalWrite(dcmotor2pin1, 0); //sets in3 to 0
+    digitalWrite(dcmotor2pin1, low); //sets in3 to 0
     digitalWrite(dcmotor2pin2, pwmMin); //sets in4 to 70pwm
     delay(moveTime); //delay
 }
 
 void leftMotors(int moveTime){ //moves the left motor backwards and the right motor forwards 
   digitalWrite(dcmotor1pin1, pwmMin); //sets in1 to 70pwm
-  digitalWrite(dcmotor1pin2, 0); //sets in2 to 0
+  digitalWrite(dcmotor1pin2, low); //sets in2 to 0
   digitalWrite(dcmotor2pin1, pwmMin); //sets in3 to 70pwm
-  digitalWrite(dcmotor2pin2, 0); //sets in4 to 0
+  digitalWrite(dcmotor2pin2, low); //sets in4 to 0
   delay(moveTime);
 }
 
 void forwardMotors(int moveTime){ //moves both motors forwards
-   digitalWrite(dcmotor1pin1, 0); //sets in1 to 0
+   digitalWrite(dcmotor1pin1, low); //sets in1 to 0
    digitalWrite(dcmotor1pin2, pwmMin); //sets in2 to 70pwm
    digitalWrite(dcmotor2pin1, pwmMin); //sets in3 to 70pwm
-   digitalWrite(dcmotor2pin2, 0); //sets in4 to 0
+   digitalWrite(dcmotor2pin2, low); //sets in4 to 0
    delay(moveTime); //delay
 }
 
 void backwardMotors(int moveTime){ //moves the both motors backwards
    digitalWrite(dcmotor1pin1, pwmMin); //sets in1 to 70pwm
-   digitalWrite(dcmotor1pin2, 0); //sets in2 to 0
-   digitalWrite(dcmotor2pin1, 0); //sets in3 to 0
+   digitalWrite(dcmotor1pin2, low); //sets in2 to 0
+   digitalWrite(dcmotor2pin1, low); //sets in3 to 0
    digitalWrite(dcmotor2pin2, pwmMin); //sets in4 to 70pwm
    delay(moveTime); //delay
 }
 
 void stopMotors(){ //stops both motors
-   digitalWrite(dcmotor1pin1, 0); //sets in1 to 0
-   digitalWrite(dcmotor1pin2, 0); //sets in2 to 0
-   digitalWrite(dcmotor2pin1, 0); //sets in3 to 0
-   digitalWrite(dcmotor2pin2, 0); //sets in4 to 0
+   digitalWrite(dcmotor1pin1, low); //sets in1 to 0
+   digitalWrite(dcmotor1pin2, low); //sets in2 to 0
+   digitalWrite(dcmotor2pin1, low); //sets in3 to 0
+   digitalWrite(dcmotor2pin2, low); //sets in4 to 0
 }
 
 //Still working on this code
 /*
 void backrightMotors(int moveTime){
-  digitalWrite(dcmotor1pin1, 0);
-  digitalWrite(dcmotor1pin2, pwmMin-20);
-  digitalWrite(dcmotor2pin1, pwmMin+20);
-  digitalWrite(dcmotor2pin2, 0);
+  digitalWrite(dcmotor1pin1, low);
+  digitalWrite(dcmotor1pin2, pwmMin-pwmIncrease);
+  digitalWrite(dcmotor2pin1, pwmMin+pwmIncrease);
+  digitalWrite(dcmotor2pin2, low);
   delay(moveTime);
 }
 
 void backleftMotors(int moveTime){
-  digitalWrite(dcmotor1pin1, pwmMin+20);
-  digitalWrite(dcmotor1pin2, 0);
-  digitalWrite(dcmotor2pin1, pwmMin-20);
-  digitalWrite(dcmotor2pin2, 0);
+  digitalWrite(dcmotor1pin1, pwmMin+pwmIncrease);
+  digitalWrite(dcmotor1pin2, low);
+  digitalWrite(dcmotor2pin1, pwmMin-pwmIncrease);
+  digitalWrite(dcmotor2pin2, low);
 }
 */
 
