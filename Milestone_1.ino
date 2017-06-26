@@ -60,6 +60,8 @@ void stopMotors(){ //stops both motors
    digitalWrite(dcmotor2pin1, 0); //sets in3 to 0
    digitalWrite(dcmotor2pin2, 0); //sets in4 to 0
 }
+
+//Still working on this code
 /*
 void backrightMotors(int moveTime){
   digitalWrite(dcmotor1pin1, 0);
