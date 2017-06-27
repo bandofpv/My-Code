@@ -14,10 +14,10 @@ void loop() {
   // put your main code here, to run repeatedly:
 
   val = analogRead(sensorpin); //sets value to the value of Ir distance
-  if (val >= 200){
-    Serial.println("INCOMING!");
+  if (val >= 200){ //if the sensor detects an object...
+    Serial.println("INCOMING!"); //write INCOMING! to serial monitor
   }
-  else {
-    Serial.println("KEEP MOVING!");
+  else { //if the sensor doesn't detect and object...
+    Serial.println("KEEP MOVING!"); //write KEEP MOVING! to the serial monitor
   }
 }
