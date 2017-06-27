@@ -1,3 +1,6 @@
+/*
+This code is used to write INCOMING! if the sensor detects an object an KEEP MOVING! if it doesn't detect an object
+ */
 int sensorpin = 0; //sets IR sensor to pin A0
 int val = 0;  //variables to store the IR sensor values
 void setup() {
