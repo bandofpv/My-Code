@@ -1,3 +1,6 @@
+/*
+This code is used to print the values from the IR sensor to the serial monitor
+ */
 int sensorpin = 0; //sets IR sensor to pin A0
 int val = 0;  //variables to store the IR sensor values
 void setup() {
