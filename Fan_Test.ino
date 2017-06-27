@@ -1,3 +1,6 @@
+/* 
+This code is used to test if your fan is working
+ */
 const int fanmotor = 12; //number of fan motor pin
 
 void setup() {
