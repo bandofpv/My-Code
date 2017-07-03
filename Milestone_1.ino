@@ -10,10 +10,6 @@ NOTE: This code only includes the two front sensors
 const int leftfrontsensor = 0; //sets the left front IR sensor to pin A0
 const int rightfrontsensor = 1; //sets the right front IR sensor to pin A1
 
-//Sensor Value Variables
-int irValue1 = 0; //sets irValue1 to store the left front IR sensor value 
-int irValue2 = 0; //sets irValue2 to store the right front IR sensor value
-
 //Motor Pin Variables
 const int dcmotor1pin1 = 3; //sets in1 to pin 3
 const int dcmotor1pin2 = 5; //sets in2 to pin 5
@@ -104,8 +100,8 @@ void backleftMotors(int moveTime){
 void loop() {
 
   //IR Sensor Values
-  irValue1 = analogRead(leftfrontsensor); //sets irValue1 to the value of the left Ir sensor
-  irValue2 = analogRead(rightfrontsensor); //sets irValue2 to the value of the right Ir sensor
+  int irValue1 = analogRead(leftfrontsensor); //sets irValue1 to the value of the left Ir sensor
+  int irValue2 = analogRead(rightfrontsensor); //sets irValue2 to the value of the right Ir sensor
   int motorDelay = 500; //sets motorDelay to 1 second
   int aproach = 100; //sets aproach to 100 miliseconds
   int noDelay = 0; //sets noDelay to 0 miliseconds
