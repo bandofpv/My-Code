@@ -6,15 +6,15 @@ This code will be used to avoid walls and other obstacles for my vacuum robot
 NOTE: This code only includes the two front sensors
 */
 
-//Sensor Pin Variables
-const int leftfrontsensor = 0; //sets the left front IR sensor to pin A0
-const int rightfrontsensor = 1; //sets the right front IR sensor to pin A1
-
 //Motor Pin Variables
 const int dcmotor1pin1 = 3; //sets in1 to pin 3
 const int dcmotor1pin2 = 5; //sets in2 to pin 5
 const int dcmotor2pin1 = 6; //sets in3 to pin 6
 const int dcmotor2pin2 = 9; //sets in4to pin 9
+
+//Sensor Pin Variables
+const int leftfrontsensor = 0; //sets the left front IR sensor to pin A0
+const int rightfrontsensor = 1; //sets the right front IR sensor to pin A1
 
 //PWM Variables
 const int pwmMax = 160; //sets pwmMax to 160
