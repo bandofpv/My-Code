@@ -48,7 +48,7 @@ void leftMotors(int moveTime){ //moves the lift motor backwards and the right fo
    digitalWrite(dcmotor1pin1, pwmMin); //sets in1 to 70pwm
    digitalWrite(dcmotor1pin2, 0); //sets in2 to 0
    digitalWrite(dcmotor2pin1, 0); //sets in3 to 0
-   digitalWrite(dcmotor2pin2, pwmMin+20); //sets in4 to 70pwm
+   digitalWrite(dcmotor2pin2, pwmMin); //sets in4 to 70pwm
    delay(moveTime); //delay
 }
 
@@ -67,7 +67,7 @@ void loop() {
   int motorDelay = 1000; //sets motorDelay to 1 second
   int aproach = 100; //sets aproach to 100 miliseconds
   int noDelay = 0; //sets noDelay to 0 miliseconds
-  int minDistance = 14; //sets minDistance to 100
+  int minDistance = 100; //sets minDistance to 100
   
   if (irValue1 <= minDistance && irValue2 >= minDistance) { //if the left sensor detects an object and the right doesn't...
   backwardMotors(motorDelay); //move backwards for a second
