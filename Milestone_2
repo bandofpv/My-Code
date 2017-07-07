@@ -11,6 +11,20 @@ NOTE: This code only includes the two front sensors
 const int battery = 0; //sets the battery to pin A0
 const float voltageBatCharged = 12.68; // Voltage measured when battery fully charged
 
+//Read Battery
+float  readBattery(int input){ //input will be the power source your measuring: The Battery!
+  int readInput = analogRead(input); //sets readInput to the value of the input
+  float voltage = (((readInput*4.9)/1000)*voltageBatCharged ) / 5; // resolution of analog input = 4.9mV per Voltage 
+  Serial.print(" Battery= "); //Prints "Battery=" 
+  Serial.print(voltage); //Prints the value of the battery after the formula
+  return voltage; //returns the voltage
+  } 
+  
+//Battery Values
+float batteryVoltage = readBattery(battery); //sets batteryVoltage to the cell voltage of the lipo battery
+float lowBattery = 3.8; //sets lowBattery to 3.8v
+float highBattery = 4.5; //sets highBattery to 4.5v
+
 //Fan Motor Pin Variable
 const int fanmotor = 12; //sets the fan motor to pin 12
 
@@ -31,29 +45,7 @@ const int low = 0; //sets low to 0
 const int pwmIncrease = 20; //sets pwmIncrease to 20
 
 //Delay Variable
-int threesecDelay = 3000; //sets threesecDelay to 3 seconds
-
-void setup() {
-
-  //Voltage Divider Pin
-  pinMode(battery, INPUT); //sets the battery to an INPUT
-
-  //Fan Motor Pin
-  pinMode(fanmotor, OUTPUT); //sets the fan motor to an OUTPUT
-  
-  //Motor Pins
-  pinMode(dcmotor1pin1, OUTPUT); //sets the first motor pin to an OUTPUT
-  pinMode(dcmotor1pin2, OUTPUT); //sets the second motor pin to an OUTPUT
-  pinMode(dcmotor2pin1, OUTPUT); //sets the thrid motor pin to an OUTPUT
-  pinMode(dcmotor2pin2, OUTPUT); //sets the fourth motor pin to an OUTPUT
-
-  //Sensor Pins
-  pinMode(leftfrontsensor, INPUT); //sets the left front IR sensor to an INPUT
-  pinMode(rightfrontsensor, INPUT); //sets the right front IR sensor to an INPUT
-
-  Serial.begin(9600); //Starts Serial Monitor
-  delay(threesecDelay);
-}
+int fivesecDelay = 5000; //sets threesecDelay to 3 seconds
 
 //Right
 void rightMotors(int moveTime){ //moves the left motor forwards and the right motor backwards
@@ -109,14 +101,31 @@ void fanmotorOff(){ //turns the fan motor off
   digitalWrite(fanmotor, LOW); 
 }
 
-//Read Battery
-float  readBattery(int input){ //input will be the power source your measuring: The Battery!
-  int readInput = analogRead(input); //sets readInput to the value of the input
-  float voltage = (((readInput*4.9)/1000)*voltageBatCharged ) / 5; // resolution of analog input = 4.9mV per Voltage 
-  Serial.print(" Battery= "); //Prints "Battery=" 
-  Serial.print(voltage); //Prints the value of the battery after the formula
-  return voltage; //returns the voltage
-  } 
+void setup() {
+
+  //Voltage Divider Pin
+  pinMode(battery, INPUT); //sets the battery to an INPUT
+
+  //Fan Motor Pin
+  pinMode(fanmotor, OUTPUT); //sets the fan motor to an OUTPUT
+  
+  //Motor Pins
+  pinMode(dcmotor1pin1, OUTPUT); //sets the first motor pin to an OUTPUT
+  pinMode(dcmotor1pin2, OUTPUT); //sets the second motor pin to an OUTPUT
+  pinMode(dcmotor2pin1, OUTPUT); //sets the thrid motor pin to an OUTPUT
+  pinMode(dcmotor2pin2, OUTPUT); //sets the fourth motor pin to an OUTPUT
+
+  //Sensor Pins
+  pinMode(leftfrontsensor, INPUT); //sets the left front IR sensor to an INPUT
+  pinMode(rightfrontsensor, INPUT); //sets the right front IR sensor to an INPUT
+
+  Serial.begin(9600); //Starts Serial Monitor
+  //If the battery is greater than 3.8v
+  if(batteryVoltage >= lowBattery && batteryVoltage <= highBattery){ 
+    fanmotorOn(); //Turns fan motor on
+  }
+  delay(fivesecDelay); //5 second delay
+}
 
 //Still working on this code
 /*
@@ -138,26 +147,31 @@ void backleftMotors(int moveTime){
 
 void loop() {
 
+  //Battery Values
+  float batteryVoltage = readBattery(battery); //sets batteryVoltage to the cell voltage of the lipo battery
+  float lowBattery = 3.8; //sets lowBattery to 3.8v
+  float highBattery = 4.5; //sets highBattery to 4.5v
+  
   //IR Sensor Values
   int irValue1 = digitalRead(leftfrontsensor); //sets irValue1 to the value of the left Ir sensor
   int irValue2 = digitalRead(rightfrontsensor); //sets irValue2 to the value of the right Ir sensor
 
   //Motor Delays
-  int motorDelay = 500; //sets motorDelay to 1 second
+  int motorDelay = 500; //sets motorDelay to 0.5 seconds
+  int turnmotorDelay = 300; //sets motorDelay to 300 miliseconds
   int aproach = 100; //sets aproach to 100 miliseconds
   int noDelay = 0; //sets noDelay to 0 miliseconds
-  int frontminDistance = 1; //sets minDistance to 1
 
   //Voltage Divider and Fan Motor Conditional Statements
 
-  //If the battery cell voltage is less than 3.8v...
-  if (readBattery(battery) <= 3.8){ 
+  //If the battery cell voltage is less than 3.8v or greater than 4.5v
+  if (batteryVoltage <= lowBattery || batteryVoltage >= highBattery){ 
     fanmotorOff(); //turns the fan motor to LOW or off
     stopMotors(); //stops the robot from moving
   }
 
   //If the battery cell voltage is greater than 3.8v and less than 4.5v...
-  else if (readBattery(battery) >= 3.8 && readBattery(battery) <= 4.5){
+  else if (batteryVoltage >= lowBattery && batteryVoltage <= highBattery){
     fanmotorOn(); //turns the fan motor to HIGH or on
   }
   
@@ -166,7 +180,7 @@ void loop() {
   //If the left front sensor detects an object and the right front sensor doesn't...
   if (irValue1 == HIGH && irValue2 == LOW) {
   backwardMotors(motorDelay); //move backwards for a second
-  rightMotors(motorDelay); //move left for a second
+  rightMotors(turnmotorDelay); //move left 
   forwardMotors(aproach); //moves forwards a little
   Serial.println("Left HIGH"); //prints "Left HIGH" to serail monitor
   }
@@ -174,7 +188,7 @@ void loop() {
   //if the left front sensor doesn't detect an object and the right front sensor detects an object...
   else if (irValue1 == LOW && irValue2 == HIGH){ 
    backwardMotors(motorDelay); //move backwards for a second
-   leftMotors(motorDelay); //move left for a second
+   leftMotors(turnmotorDelay); //move left 
    forwardMotors(aproach); //move forwards a little
    Serial.println("Right HIGH"); //prints "Right HIGH" to serial monitor
   }
@@ -182,7 +196,7 @@ void loop() {
   //if both front sensors detect an object...
   else if (irValue1 == HIGH && irValue2 == HIGH){ 
   backwardMotors(motorDelay); //move backwards for a second
-  leftMotors(motorDelay); //move left for a second
+  leftMotors(turnmotorDelay); //move left 
   forwardMotors(aproach); //move forward a little
   Serial.println("Both HIGH"); //prints "Both HIGH" to serial monitor
   }
