@@ -336,16 +336,15 @@ void loop()
   int turnmotorDelay = 300; //sets motorDelay to 300 miliseconds
     
   //Voltage Divider and Fan Motor Conditional Statements
-/*
+  
   //If the battery cell voltage is less than 3.8v...
   if (readBattery(battery) <= lowBattery){ 
     fanmotorOff(); //turns the fan motor to LOW or off
     stopMotors(); //stops the robot from moving
     greenledBlink(fivesecDelay, 0); //Blink the green led
   }
-  */
 
-  clean();
+  clean(); //clean
   
   if( Serial.available()) // if data is available to read
   {
