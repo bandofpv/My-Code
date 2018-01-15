@@ -1,5 +1,6 @@
-# My-Code
-This is my code 
+# My-Code 2017
+
+Code from Blue Stamp Engineering for my vacuum robot
 
 # Credits
 https://www.instructables.com/id/Build-Your-Own-Vacuum-Robot/
