@@ -1,4 +1,4 @@
-# My-Code 2017
+# Vacuum Robot 2017
 
 Code from Blue Stamp Engineering for my vacuum robot
 
